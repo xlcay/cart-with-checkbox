@@ -17,7 +17,7 @@
         class="bg-white rounded-2xl overflow-visible
                shadow-xl hover:shadow-2xl transition-all duration-300
                transform hover:-translate-y-2">
-        <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-8 text-white">
+        <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-8 text-white rounded-t-2xl">
           <h1 class="text-3xl font-bold mb-4">Kobi Paketi</h1>
           <p class="text-blue-100">Lorem ipsum dolor sit amet.</p>
           <svg class="w-32 h-32 flex absolute overflow-visible -right-12 -top-10 rotate-45" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" version="1.1" id="svg2" width="5333.3335" height="5333.3335" viewBox="0 0 5333.3335 5333.3335" sodipodi:docname="vecteezy_scooter-vector-flat-icon-for-personal-and-commercial-use_35788378.eps">
@@ -99,7 +99,7 @@
 
             
             <span class="font-bold mt-5">
-              Toplam: {{ toplamKobi }} $/m
+              Toplam: {{ totals.kobi }} $/m
             </span>
           </div>
         </div>
@@ -110,7 +110,7 @@
         class="bg-white rounded-2xl
                shadow-xl hover:shadow-2xl transition-all duration-300
                transform hover:-translate-y-2">
-        <div class="bg-gradient-to-br from-green-500 to-green-700 p-8 text-white">
+        <div class="bg-gradient-to-br from-green-500 to-green-700 p-8 text-white rounded-t-2xl">
           <h1 class="text-3xl font-bold mb-4">Kurumsal Paket</h1>
           <p class="text-blue-100">Lorem ipsum dolor sit amet.</p>
           <svg class="w-32 h-32 flex absolute overflow-visible -right-12 -top-10 rotate-45" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 3000 2250">
@@ -185,7 +185,7 @@
             </button>
             <!-- Kurumsal total -->
             <span class="font-bold mt-5">
-              Toplam: {{ toplamKurumsal }} $/m
+              Toplam: {{ totals.kurumsal }} $/m
             </span>
           </div>
         </div>
@@ -209,12 +209,6 @@ const items1 = ref([
 
 const kobiSecilen = ref([])
 
-const toplamKobi = computed(() => {
-  return kobiSecilen.value.reduce((acc, priceString) => {
-    return acc + Number(priceString)
-  }, 0)
-})
-
 const items = ref([
   { id: 1, name: 'Kurumsal 1', price: 10 },
   { id: 2, name: 'Kurumsal 2', price: 25 },
@@ -227,13 +221,20 @@ const items = ref([
   { id: 9, name: 'Kurumsal 7', price: 423 },
 ])
 
+const totals = computed(() => {
+  //  kobi total
+  const kobiTotal = kobiSecilen.value.reduce((acc, val) => acc + Number(val), 0)
+  //  kurumsal total
+  const kurumsalTotal = kurumsalSecilen.value.reduce((acc, val) => acc + Number(val), 0)
+
+  return {
+    kobi: kobiTotal,
+    kurumsal: kurumsalTotal
+  }
+})
+
 const kurumsalSecilen = ref([])
 
-const toplamKurumsal = computed(() => {
-  return kurumsalSecilen.value.reduce((acc, priceString) => {
-    return acc + Number(priceString)
-  }, 0)
-})
 
 
 const isExpandedOne = ref(false)
